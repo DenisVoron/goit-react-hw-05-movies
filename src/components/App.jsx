@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route  } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import Home from "../pages/Home";
 import Movies from "../pages/Movies";
 import MoviesDetails from "../pages/MoviesDetails/MoviesDetails";
@@ -9,6 +10,22 @@ import { Container, Header, Logo, Link } from "./App.styled";
 
 
 export const App = () => {
+
+  //const navigate = useNavigate();
+
+  const handleSubmit = async values => {
+    const response = await fetch('https://api.themoviedb.org/3/trending/all/week?api_key=e338843fab235d92204cc1e536c80b21');
+    const users = await response.json();
+    if (response) {
+      console.log(users);
+      return users;
+      //navigate("/profile", { replace: true });
+      //.success
+    }
+  };
+
+  handleSubmit().then(movies => console.log(movies));
+
   return (
     <Container>
       <Header>
