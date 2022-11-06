@@ -17,6 +17,7 @@ export const Image = styled.img`
 export const Wrapper = styled.div`
   display: flex;
   border-bottom: 1px solid black;
+  padding-bottom: 16px;
 `;
 
 export const Title = styled.h2`

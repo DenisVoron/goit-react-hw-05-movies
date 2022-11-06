@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { ListMovies, ItemsMovie, MoviesName } from "./MoviesList.styled";
 
-export const MoviesList = ({ products }) => {
+export const MoviesList = ({movies}) => {
+  console.log(movies);
   return (
     <ListMovies>
-      {products.map((product) => (
-        <ItemsMovie key={product.id}>
-          <Link to={`${product.id}`}>
-            <MoviesName>{product.name}</MoviesName>
+      {movies.map(({id, title}) => (
+        <ItemsMovie key={id}>
+          <Link to={`/${id}`}>
+            <MoviesName>{title}</MoviesName>
           </Link>
         </ItemsMovie>
       ))}

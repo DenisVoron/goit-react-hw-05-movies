@@ -1,5 +1,6 @@
-import { useParams, Link,Outlet } from "react-router-dom";
-import { getProductById } from "../../fakeAPI";
+import { useParams, Link, Outlet } from "react-router-dom";
+import { useState, useEffect } from 'react';
+//import { getProductById } from "../../fakeAPI";
 import {
   Main,
   Image,
@@ -12,30 +13,52 @@ import {
   GenresText
 } from "./MoviesDetails.styled";
 
+const API_URL = 'https://api.themoviedb.org/3/';
+const API_KEY = 'e338843fab235d92204cc1e536c80b21';
+
 const MoviesDetails = () => {
   const { id } = useParams();
-  const product = getProductById(id);
   
+  const [movies, setMovie] = useState('');
+  console.log(movies);
+  useEffect(() => {
+    function fetchMovie() {
+      fetch(`${API_URL}movie/${id}?api_key=${API_KEY}&language=en-US`)
+        .then(response => response.json())
+        .then(data => {
+          setMovie({
+            poster: `https://image.tmdb.org/t/p/w500/${data.poster_path}`,
+            title: data.title,
+            score: Number.parseInt(data.vote_average * 10),
+            overview: data.overview,
+            genres: data.genres
+              .reduce((acc, genre) => (acc += genre.name + '. '), '')
+              .trim(),
+            
+          })
+        })
+    }
+    
+    fetchMovie();
+  }, [id]);
+
+
+
+  console.log(movies.poster);
+
   return (
     <Main>
       <Wrapper>
-        <Image src="https://via.placeholder.com/960x240" alt="" />
+        <Image src={movies.poster} alt="" />
         <div>
         <Title>
-          Product - {product.name}
+          {movies.title}
         </Title>
-        <DescrScore>User Score: </DescrScore>
+        <DescrScore>{`User Score: ${movies.score} %`}</DescrScore>
         <OverwiewTitle>Overwiew</OverwiewTitle>
-        <OverwiewDescr>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus
-          sunt excepturi nesciunt iusto dignissimos assumenda ab quae cupiditate
-          a, sed reprehenderit? Deleniti optio quasi, amet natus reiciendis
-          atque fuga dolore? Lorem, ipsum dolor sit amet consectetur adipisicing
-          elit. Impedit suscipit quisquam incidunt commodi fugiat aliquam
-          praesentium ipsum quos unde voluptatum?
-        </OverwiewDescr>
+          <OverwiewDescr>{ movies.overview}</OverwiewDescr>
         <GenresDescr>Genres</GenresDescr>
-          <GenresText>Genres Genres Genres</GenresText>
+          <GenresText>{movies.genres}</GenresText>
           </div>
       </Wrapper>
       <ul>
