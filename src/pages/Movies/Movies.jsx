@@ -61,7 +61,7 @@ const Movies = () => {
           </Button>
         </Form>
       </Wrapper>
-      {<MoviesList movies={movies} />}
+      {movies && <MoviesList movies={movies} />}
     </main>
   );
 };
