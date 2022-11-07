@@ -5,6 +5,7 @@ export const ListMovies = styled.ul`
 `;
 
 export const ItemsMovie = styled.li`
+   font-size: 15px;
   > a {
     text-decoration: none;
   }

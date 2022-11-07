@@ -1,6 +1,6 @@
 import { useParams, Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from 'react';
-//import { getProductById } from "../../fakeAPI";
+
 import {
   Main,
   Image,

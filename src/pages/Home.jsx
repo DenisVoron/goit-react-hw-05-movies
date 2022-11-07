@@ -18,7 +18,7 @@ const Home = () => {
           setMovies(data.results.map(result => ({ id: result.id, title: result.title })));
           console.log(data);
         })
-        .catch();
+        .catch(error => console.log(error));
     }
     fetchMovies();
   }, []);
