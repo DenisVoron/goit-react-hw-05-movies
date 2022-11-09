@@ -41,7 +41,7 @@ const Reviews = () => {
                         })}
                     </ul>
                 </section>)
-                : (<p>We don't have any reviews for this movie. You can be first</p>)}
+                : (<p>We don't have any reviews for this movie.</p>)}
         </>
     );
 };
