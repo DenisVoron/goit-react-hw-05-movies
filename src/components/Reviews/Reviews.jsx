@@ -1,4 +1,25 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+const API_URL = 'https://api.themoviedb.org/3/';
+const API_KEY = 'e338843fab235d92204cc1e536c80b21';
+
 const Reviews = () => {
+
+    const {id} = useParams();
+    console.log(id);
+
+    //const id = id;
+    useEffect(() => {
+        function fetchMovie() {
+            fetch(`${API_URL}movie/${id}/reviews?api_key=${API_KEY}&language=en-US&page=1`)
+                .then(response=> response.json())
+                .then(data =>{})
+        }
+
+        fetchMovie();
+    }, []);
+
     return (
         <section>
             <ul>

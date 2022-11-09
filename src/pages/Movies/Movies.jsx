@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-//import { SearchBox } from "../../components/SearchBox/SearchBox";
-import { MoviesList } from "../../components/MoviesList/MoviesList";
 import { Wrapper,Form, Input, Button, Icon } from "./Movies.styled";
 
 
@@ -10,12 +8,11 @@ const API_KEY = 'e338843fab235d92204cc1e536c80b21';
 
 const Movies = () => {
 
-  //const rambo = '';
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get('query');
-  console.log(queryParam);
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState(queryParam ? queryParam : '');
+  const location = useLocation();
   console.log(query);
 
   useEffect(() => {
@@ -42,7 +39,6 @@ const Movies = () => {
     e.preventDefault();
 
     const value = e.target.query.value;
-    console.log(value);
     setQuery(value);
     setSearchParams({ query: value });
   };
@@ -51,7 +47,7 @@ const Movies = () => {
   return (
     <main>
       <Wrapper>
-        <Form action="" onChange={handleSubmit}>
+        <Form action="" onSubmit={handleSubmit}>
           <Input
             type="text"
             name="query"     
@@ -61,7 +57,21 @@ const Movies = () => {
           </Button>
         </Form>
       </Wrapper>
-      {movies && <MoviesList movies={movies} />}
+      <ul>
+        {movies.map(({ id, title }) => {
+          return (
+            <li key={id}>
+              <Link
+                to={`${id}`}
+                search={{ querySerch: `query=${query}` }}
+                state={{ from: location }}
+              >
+                {title}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </main>
   );
 };
