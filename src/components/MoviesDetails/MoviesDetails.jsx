@@ -1,4 +1,5 @@
-import { useParams,useLocation, Link, Outlet } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { useParams, useLocation, Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Suspense } from 'react';
 
@@ -59,6 +60,23 @@ const MoviesDetails = () => {
       </Suspense>
     </Main>
   );
+};
+
+
+MoviesDetails.propTypes = {
+  details: PropTypes.arrayOf(
+    PropTypes.exact({
+      poster_path: PropTypes.string,
+      original_title: PropTypes.string.isRequired,
+      popularity: PropTypes.number.isRequired,
+      overview: PropTypes.string.isRequired,
+      genres: PropTypes.arrayOf(
+        PropTypes.exact({
+          name: PropTypes.string.isRequired,
+        })
+      ),
+    })
+  )
 };
 
 export default MoviesDetails;

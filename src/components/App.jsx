@@ -5,7 +5,7 @@ import Home from "../pages/Home/Home";
 import Movies from "../pages/Movies/Movies";
 import MoviesDetails from "./MoviesDetails/MoviesDetails";
 import Cast from "./Cast/Cast";
-//import NotFound from "../pages/NotFound";
+import NotFound from "../pages/NotFound";
 import Reviews from "./Reviews/Reviews";
 import { Container, Header, Logo, Link } from "./App.styled";
 
@@ -26,40 +26,14 @@ export const App = () => {
         </Logo>
       </Header>
       <Routes>
-        <Route path="*" element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="movies" element={<Movies />} />
         <Route path="movies/:id" element={<MoviesDetails />}>
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
-        {/*<Route path="*" element={<NotFound />} />*/}
+        <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
   );
 };
-
-
-
-//<Route path="/products" element={<Products />} />
-//import Products from "path/to/pages/Products";
-
-
-
-
-
-/*export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
-};*/

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { Wrapper,Form, Input, Button, Icon } from "./Movies.styled";
@@ -13,7 +14,6 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState(queryParam ? queryParam : '');
   const location = useLocation();
-  console.log(query);
 
   useEffect(() => {
 
@@ -42,7 +42,6 @@ const Movies = () => {
     setQuery(value);
     setSearchParams({ query: value });
   };
-
 
   return (
     <main>
@@ -76,6 +75,13 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+Movies.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ),
+};
 
-//value={productName} onChange={} 
+export default Movies;

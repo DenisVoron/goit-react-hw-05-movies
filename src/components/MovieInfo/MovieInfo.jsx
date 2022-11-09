@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
     Image,
     Wrapper,
@@ -28,3 +29,10 @@ export const MovieInfo = ({ poster, title, score, overview, genres }) => {
     );
 };
 
+MovieInfo.propTypes = {
+  poster: PropTypes.string,
+  title: PropTypes.string,
+  score: PropTypes.number,
+  overview: PropTypes.string,
+  genres: PropTypes.string,
+};

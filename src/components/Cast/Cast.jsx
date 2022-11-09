@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -51,6 +52,10 @@ const Cast = () => {
                 })}
             </Castlist>
     );
+};
+
+Cast.propTypes = {
+  actors: PropTypes.string,
 };
 
 export default Cast;

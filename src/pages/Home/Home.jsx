@@ -1,10 +1,9 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from "react-router-dom";
-//import { MoviesList } from "../components/MoviesList/MoviesList";
 
 const API_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = 'e338843fab235d92204cc1e536c80b21';
-
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -37,9 +36,17 @@ const Home = () => {
           )
         })}
       </ul>
-      {/*<MoviesList movies={movies} />*/}
     </main>
   );
+};
+
+Home.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default Home;

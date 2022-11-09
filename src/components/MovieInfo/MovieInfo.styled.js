@@ -17,15 +17,14 @@ export const Title = styled.h2`
   font-weight: 700;
 `;
 
-
 export const DescrScore = styled.p`
   margin: 0 auto;
 `;
 
-
 export const OverwiewTitle = styled.h3`
   font-weight: 500;
 `;
+
 //overwiewDescr
 export const OverwiewDescr = styled.p`
   font-size:medium;
