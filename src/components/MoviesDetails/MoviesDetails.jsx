@@ -4,11 +4,8 @@ import { useState, useEffect } from 'react';
 import { Suspense } from 'react';
 
 import { Main } from "./MoviesDetails.styled";
-
 import { MovieInfo } from "components/MovieInfo/MovieInfo";
-
-const API_URL = 'https://api.themoviedb.org/3/';
-const API_KEY = 'e338843fab235d92204cc1e536c80b21';
+import { fetchMoviesDetails } from "../../services/fetch-api";
 
 const MoviesDetails = () => {
   const [movies, setMovie] = useState({});
@@ -17,7 +14,21 @@ const MoviesDetails = () => {
   const backLink = location.state?.from ?? '/movies';
 
   useEffect(() => {
-    function fetchMovie() {
+    fetchMoviesDetails(id)
+      .then(data => {
+          setMovie({
+            poster: `https://image.tmdb.org/t/p/w500/${data.poster_path}`,
+            title: data.title,
+            score: Number.parseInt(data.vote_average * 10),
+            overview: data.overview,
+            genres: data.genres
+              .reduce((acc, genre) => (acc += genre.name + '. '), '')
+              .trim(),
+          })
+      })
+      .catch(error => console.log(error));
+
+    /*function fetchMovie() {
       fetch(`${API_URL}movie/${id}?api_key=${API_KEY}&language=en-US`)
         .then(response => response.json())
         .then(data => {
@@ -33,7 +44,7 @@ const MoviesDetails = () => {
         })
     }
     
-    fetchMovie();
+    fetchMovie();*/
   }, [id]);
 
 
@@ -49,10 +60,10 @@ const MoviesDetails = () => {
       />
       <ul>
         <li>
-          <Link to="cast">Cast</Link>
+          <Link to="cast" state={{ from: backLink }}>Cast</Link>
         </li>
         <li>
-          <Link to="reviews">Reviews</Link>
+          <Link to="reviews" state={{ from: backLink }}>Reviews</Link>
         </li>
       </ul>
       <Suspense fallback={<div>Loading page...</div>}>

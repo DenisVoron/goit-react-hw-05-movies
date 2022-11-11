@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { fetchCast } from "../../services/fetch-api";
+
 import { Castlist,CharacterDescr, WrapperCharacter } from "./Cast.styled";
 
-const API_URL = 'https://api.themoviedb.org/3/';
-const API_KEY = 'e338843fab235d92204cc1e536c80b21';
 const placeholder = "https://via.placeholder.com/160x240";
 
 const Cast = () => {
@@ -13,10 +13,9 @@ const Cast = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        function fetchMovies() {
-            fetch(`${API_URL}movie/${id}/credits?api_key=${API_KEY}&language=en-US`)
-                .then(response => response.json())
-                .then(data => {
+
+        fetchCast(id)
+            .then(data => {
                     setActors(data.cast.map(({ profile_path, name, character }) => {
                         return {
                             poster: profile_path
@@ -27,10 +26,9 @@ const Cast = () => {
                         };
                     })
                     );
-                }).catch(error => console.log(error));
-        };
+            })
+            .catch(error => console.log(error));
 
-        fetchMovies();
     }, [id]);
 
     return (
@@ -46,7 +44,6 @@ const Cast = () => {
                                     {character}
                                 </WrapperCharacter>
                             </CharacterDescr>
-                            <img src="https://via.placeholder.com/160x240" alt="" />
                         </li>
                     )
                 })}

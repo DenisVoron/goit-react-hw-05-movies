@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
+
+import { fetchMovies } from "../../services/fetch-api";
+
 import { Wrapper,Form, Input, Button, Icon } from "./Movies.styled";
-
-
-const API_URL = 'https://api.themoviedb.org/3/';
-const API_KEY = 'e338843fab235d92204cc1e536c80b21';
 
 const Movies = () => {
 
@@ -21,18 +20,15 @@ const Movies = () => {
       return;
     };
 
-    function fetchMovie() {
-      fetch(`${API_URL}search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`)
-        .then(response => response.json()).then(data => {
+    fetchMovies(query)
+      .then(data => {
           console.log(data);
           setMovies(
             data.results.map(({ id, title }) => ({ id: id, title: title })),
           );
         })
-        .catch(error => console.log(error));
-    }
-
-    fetchMovie();
+      .catch(error => console.log(error));
+    
   }, [query]);
 
   const handleSubmit = e => {
