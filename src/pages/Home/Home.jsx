@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import { fetchHome } from "../../services/fetch-api";
 
+
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const location = useLocation();
@@ -13,7 +14,8 @@ const Home = () => {
       .then(data => {
           setMovies(data.results.map(result => ({ id: result.id, title: result.title })));
         })
-        .catch(error => console.log(error));
+      .catch(error => console.log(error));
+    
   }, []);
   
 

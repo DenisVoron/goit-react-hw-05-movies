@@ -27,24 +27,7 @@ const MoviesDetails = () => {
           })
       })
       .catch(error => console.log(error));
-
-    /*function fetchMovie() {
-      fetch(`${API_URL}movie/${id}?api_key=${API_KEY}&language=en-US`)
-        .then(response => response.json())
-        .then(data => {
-          setMovie({
-            poster: `https://image.tmdb.org/t/p/w500/${data.poster_path}`,
-            title: data.title,
-            score: Number.parseInt(data.vote_average * 10),
-            overview: data.overview,
-            genres: data.genres
-              .reduce((acc, genre) => (acc += genre.name + '. '), '')
-              .trim(),
-          })
-        })
-    }
     
-    fetchMovie();*/
   }, [id]);
 
 

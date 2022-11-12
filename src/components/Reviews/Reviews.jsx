@@ -17,7 +17,9 @@ const Reviews = () => {
                         content: content,
                     }))
                     );
-                });
+            })
+            .catch(error => console.log(error));
+        
     }, [id]);
 
     return (

@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 
 import { fetchCast } from "../../services/fetch-api";
 
-import { Castlist,CharacterDescr, WrapperCharacter } from "./Cast.styled";
+import { Castlist, CharacterDescr, WrapperCharacter } from "./Cast.styled";
+
 
 const placeholder = "https://via.placeholder.com/160x240";
 
@@ -28,7 +29,7 @@ const Cast = () => {
                     );
             })
             .catch(error => console.log(error));
-
+    
     }, [id]);
 
     return (

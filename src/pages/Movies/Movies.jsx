@@ -4,10 +4,9 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 import { fetchMovies } from "../../services/fetch-api";
 
-import { Wrapper,Form, Input, Button, Icon } from "./Movies.styled";
+import { Wrapper, Form, Input, Button, Icon } from "./Movies.styled";
 
 const Movies = () => {
-
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get('query');
   const [movies, setMovies] = useState([]);
@@ -22,13 +21,24 @@ const Movies = () => {
 
     fetchMovies(query)
       .then(data => {
-          console.log(data);
           setMovies(
             data.results.map(({ id, title }) => ({ id: id, title: title })),
           );
         })
       .catch(error => console.log(error));
     
+    /*function fetchMovie(query) {
+      fetch(`${API_URL}search/movie?api_key=${API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          setMovies(
+            data.results.map(({ id, title }) => ({ id: id, title: title })),
+          );
+        })
+      .catch(error => console.log(error));
+    }
+    
+    fetchMovie();*/
   }, [query]);
 
   const handleSubmit = e => {
